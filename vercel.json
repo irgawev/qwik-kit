@@ -1,14 +1,22 @@
 {
-  "builds": [
+  "headers": [
     {
-      "src": "src/entry.server.tsx",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
+      "source": "/(.*)?service-worker.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
     {
-      "src": "/(.*)",
-      "dest": "/src/entry.server.tsx"
+      "source": "/build/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, s-maxage=31536000, immutable"
+        }
+      ]
     }
   ]
 }
